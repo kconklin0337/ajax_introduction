@@ -47,5 +47,16 @@ $(document).ready(function(){
 }
     function showInfoSuccess(hammer){
       console.log(hammer);
-      }
+      var source = $('#info').html();
+      var template = Handlebars.compile(source);
+      var data = {
+          latitude: hammer.latitude,
+          longitude: hammer.longitude,
+          icon: hammer.currently.icon || 'clear-night',
+          summary: hammer.currently.summary,
+          time: hammer.currently.time
+      };
+      var html = template(data);
+      $('#test-output').html(html);
+    }
 });
