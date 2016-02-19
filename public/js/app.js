@@ -1,9 +1,9 @@
-var weatherData = {};
+var weatherData = null;
 $(document).ready(function(){
   var baseUrl = 'https://api.forecast.io/forecast/';
-  var name = 'Your Name';
-  $('#get-weather').on('click', getWeather);
-
+  var name = 'Kevin Conklin'
+ // $('#get-weather').on('click', getWeather);
+  $('#get-weather').on('click', showInfo);
 
   function buildUrl(lat, lon){
     return baseUrl + apiKey+'/'+lat+','+lon;
@@ -20,7 +20,7 @@ $(document).ready(function(){
     };
 
     $.ajax(options);
-  }
+}
 
 
   function successHandler(data){
@@ -31,5 +31,21 @@ $(document).ready(function(){
 
   function errorHandler(err){
     console.log(err);
-  }
+}
+
+  function showInfo(){
+    var lat = $('#latitude').val();
+    var lon = $('#longitude').val();
+    var ajaxOptions = {
+       url: buildUrl(lat,lon),
+       dataType: 'jsonp',
+       success: showInfoSuccess,
+       error: errorHandler
+    };
+
+    $.ajax(ajaxOptions);
+}
+    function showInfoSuccess(hammer){
+      console.log(hammer);
+      }
 });
